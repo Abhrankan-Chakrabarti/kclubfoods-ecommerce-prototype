@@ -12,6 +12,23 @@ function addToCart(name, price) {
   updateCart();
 }
 
+function removeFromCart(name) {
+  cart = cart.filter(item => item.name !== name);
+  updateCart();
+}
+
+function decreaseQuantity(name) {
+  const item = cart.find(i => i.name === name);
+  if (!item) return;
+
+  item.quantity--;
+  if (item.quantity <= 0) {
+    removeFromCart(name);
+  } else {
+    updateCart();
+  }
+}
+
 function updateCart() {
   const cartItems = document.getElementById("cart-items");
   const cartCount = document.getElementById("cart-count");
@@ -23,7 +40,14 @@ function updateCart() {
 
   cart.forEach(item => {
     const li = document.createElement("li");
-    li.innerText = `${item.name} x${item.quantity} - ₹${item.price * item.quantity}`;
+
+    li.innerHTML = `
+      ${item.name} x${item.quantity} - ₹${item.price * item.quantity}
+      <button onclick="decreaseQuantity('${item.name}')">➖</button>
+      <button onclick="addToCart('${item.name}', ${item.price})">➕</button>
+      <button onclick="removeFromCart('${item.name}')">❌</button>
+    `;
+
     cartItems.appendChild(li);
 
     total += item.price * item.quantity;
