@@ -69,6 +69,12 @@ button {
   font-weight: bold;
 }
 
+.clear-btn {
+  margin-bottom: 15px;
+  background: red;
+  color: white;
+}
+
 /* Cart */
 .cart {
   padding: 40px;
@@ -76,15 +82,24 @@ button {
 }
 
 #cart-items li {
-  margin: 10px 0;
+  margin: 12px 0;
 }
 
-/* Cart Buttons */
+/* Cart Controls */
 #cart-items button {
-  margin-left: 6px;
+  margin-left: 5px;
   padding: 4px 8px;
   font-size: 12px;
   border-radius: 4px;
+}
+
+#cart-items input {
+  width: 50px;
+  text-align: center;
+  margin: 0 5px;
+  padding: 3px;
+  border-radius: 4px;
+  border: none;
 }
 
 /* Footer */
