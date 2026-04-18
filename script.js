@@ -60,11 +60,10 @@ function updateCart() {
     const li = document.createElement("li");
 
     li.innerHTML = `
-      ${item.name} 
+      ${item.name}
       <button onclick="decreaseQuantity('${item.name}')">➖</button>
       <input type="number" min="1" value="${item.quantity}" 
-        onchange="updateQuantity('${item.name}', this.value)" 
-        style="width:50px; text-align:center;">
+        onchange="updateQuantity('${item.name}', this.value)">
       <button onclick="addToCart('${item.name}', ${item.price})">➕</button>
       = ₹${item.price * item.quantity}
       <button onclick="removeFromCart('${item.name}')">❌</button>
