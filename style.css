@@ -5,6 +5,7 @@ body {
   color: white;
 }
 
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -18,12 +19,14 @@ nav a {
   text-decoration: none;
 }
 
+/* Hero */
 .hero {
   text-align: center;
   padding: 60px;
   background: linear-gradient(45deg, #ff4d4d, #ff9900);
 }
 
+/* Products */
 .products {
   padding: 40px;
   text-align: center;
@@ -34,21 +37,51 @@ nav a {
   margin: 20px;
   padding: 20px;
   background: #222;
-  border-radius: 10px;
+  border-radius: 12px;
+  width: 250px;
+  transition: 0.3s;
+}
+
+.product:hover {
+  transform: scale(1.05);
 }
 
 .product img {
-  width: 200px;
+  width: 100%;
+  border-radius: 10px;
 }
 
+/* Price */
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff9900;
+  margin: 10px 0;
+}
+
+/* Button */
 button {
   padding: 10px 15px;
   background: orange;
   border: none;
   cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
 }
 
+/* Cart */
 .cart {
   padding: 40px;
+  background: #000;
+}
+
+#cart-items li {
+  margin: 8px 0;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
   background: #000;
 }
