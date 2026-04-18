@@ -59,7 +59,7 @@ nav a {
   margin: 10px 0;
 }
 
-/* Button */
+/* Buttons */
 button {
   padding: 10px 15px;
   background: orange;
@@ -76,7 +76,15 @@ button {
 }
 
 #cart-items li {
-  margin: 8px 0;
+  margin: 10px 0;
+}
+
+/* Cart Buttons */
+#cart-items button {
+  margin-left: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
 }
 
 /* Footer */
