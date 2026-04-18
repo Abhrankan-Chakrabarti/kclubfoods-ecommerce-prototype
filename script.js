@@ -29,6 +29,24 @@ function decreaseQuantity(name) {
   }
 }
 
+function updateQuantity(name, value) {
+  const item = cart.find(i => i.name === name);
+  if (!item) return;
+
+  let qty = parseInt(value);
+  if (isNaN(qty) || qty <= 0) {
+    removeFromCart(name);
+  } else {
+    item.quantity = qty;
+    updateCart();
+  }
+}
+
+function clearCart() {
+  cart = [];
+  updateCart();
+}
+
 function updateCart() {
   const cartItems = document.getElementById("cart-items");
   const cartCount = document.getElementById("cart-count");
@@ -42,9 +60,13 @@ function updateCart() {
     const li = document.createElement("li");
 
     li.innerHTML = `
-      ${item.name} x${item.quantity} - ₹${item.price * item.quantity}
+      ${item.name} 
       <button onclick="decreaseQuantity('${item.name}')">➖</button>
+      <input type="number" min="1" value="${item.quantity}" 
+        onchange="updateQuantity('${item.name}', this.value)" 
+        style="width:50px; text-align:center;">
       <button onclick="addToCart('${item.name}', ${item.price})">➕</button>
+      = ₹${item.price * item.quantity}
       <button onclick="removeFromCart('${item.name}')">❌</button>
     `;
 
