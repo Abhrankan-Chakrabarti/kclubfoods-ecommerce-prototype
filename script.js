@@ -1,19 +1,17 @@
 let cart = [];
+let discount = 0;
 
 function addToCart(name, price) {
-  const existingItem = cart.find(item => item.name === name);
+  const item = cart.find(i => i.name === name);
 
-  if (existingItem) {
-    existingItem.quantity++;
-  } else {
-    cart.push({ name, price, quantity: 1 });
-  }
+  if (item) item.quantity++;
+  else cart.push({ name, price, quantity: 1 });
 
   updateCart();
 }
 
 function removeFromCart(name) {
-  cart = cart.filter(item => item.name !== name);
+  cart = cart.filter(i => i.name !== name);
   updateCart();
 }
 
@@ -22,21 +20,17 @@ function decreaseQuantity(name) {
   if (!item) return;
 
   item.quantity--;
-  if (item.quantity <= 0) {
-    removeFromCart(name);
-  } else {
-    updateCart();
-  }
+  if (item.quantity <= 0) removeFromCart(name);
+  else updateCart();
 }
 
 function updateQuantity(name, value) {
   const item = cart.find(i => i.name === name);
   if (!item) return;
 
-  let qty = parseInt(value);
-  if (isNaN(qty) || qty <= 0) {
-    removeFromCart(name);
-  } else {
+  const qty = parseInt(value);
+  if (isNaN(qty) || qty <= 0) removeFromCart(name);
+  else {
     item.quantity = qty;
     updateCart();
   }
@@ -47,43 +41,59 @@ function clearCart() {
   updateCart();
 }
 
-function updateCart() {
-  const cartItems = document.getElementById("cart-items");
-  const cartCount = document.getElementById("cart-count");
-  const totalDisplay = document.getElementById("total");
+function applyCoupon() {
+  const code = document.getElementById("coupon").value.toUpperCase();
 
-  cartItems.innerHTML = "";
+  if (code === "SAVE10") discount = 0.1;
+  else if (code === "FLAT50") discount = 50;
+  else {
+    discount = 0;
+    alert("Invalid coupon");
+  }
+
+  updateCart();
+}
+
+function updateCart() {
+  const list = document.getElementById("cart-items");
+  const totalEl = document.getElementById("total");
+  const discountEl = document.getElementById("discount");
+  const countEl = document.getElementById("cart-count");
+
+  list.innerHTML = "";
+
   let total = 0;
   let count = 0;
 
   cart.forEach(item => {
-    const li = document.createElement("li");
+    total += item.price * item.quantity;
+    count += item.quantity;
 
+    const li = document.createElement("li");
     li.innerHTML = `
       ${item.name}
       <button onclick="decreaseQuantity('${item.name}')">➖</button>
-      <input type="number" min="1" value="${item.quantity}" 
+      <input type="number" value="${item.quantity}" min="1"
         onchange="updateQuantity('${item.name}', this.value)">
       <button onclick="addToCart('${item.name}', ${item.price})">➕</button>
       = ₹${item.price * item.quantity}
       <button onclick="removeFromCart('${item.name}')">❌</button>
     `;
-
-    cartItems.appendChild(li);
-
-    total += item.price * item.quantity;
-    count += item.quantity;
+    list.appendChild(li);
   });
 
-  cartCount.innerText = count;
-  totalDisplay.innerText = `Total: ₹${total}`;
+  let finalTotal = total;
+
+  if (discount < 1) finalTotal -= total * discount;
+  else finalTotal -= discount;
+
+  if (finalTotal < 0) finalTotal = 0;
+
+  discountEl.innerText = `Discount: ₹${Math.round(total - finalTotal)}`;
+  totalEl.innerText = `Total: ₹${Math.round(finalTotal)}`;
+  countEl.innerText = count;
 }
 
 function checkout() {
-  if (cart.length === 0) {
-    alert("Cart is empty!");
-    return;
-  }
-
   alert("Prototype only. Payment integration coming later.");
 }
