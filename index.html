@@ -24,20 +24,37 @@
 <section id="products" class="products">
   <h2>Our Products</h2>
 
+  <!-- Product 1 -->
   <div class="product">
-    <img src="https://m.media-amazon.com/images/I/61gDGmHufzL._AC_UF894,1000_QL80_FMwebp_.jpg"/>
+    <div class="gallery">
+      <img src="https://m.media-amazon.com/images/I/61gDGmHufzL._AC_UF894,1000_QL80_FMwebp_.jpg"/>
+      <img src="https://m.media-amazon.com/images/I/61gDGmHufzL._AC_UF894,1000_QL80_FMwebp_.jpg"/>
+    </div>
     <h3>Chilli Garlic Oil</h3>
-    <p>Bold, spicy, garlic-rich flavor</p>
     <p class="price">₹298</p>
     <button onclick="addToCart('Chilli Garlic Oil', 298)">Add to Cart</button>
   </div>
 
+  <!-- Product 2 -->
   <div class="product">
-    <img src="https://m.media-amazon.com/images/I/610iGr8NnJL._AC_UF894,1000_QL80_FMwebp_.jpg"/>
+    <div class="gallery">
+      <img src="https://m.media-amazon.com/images/I/610iGr8NnJL._AC_UF894,1000_QL80_FMwebp_.jpg"/>
+      <img src="https://m.media-amazon.com/images/I/610iGr8NnJL._AC_UF894,1000_QL80_FMwebp_.jpg"/>
+    </div>
     <h3>Dry Fruit Mix</h3>
-    <p>Roasted in pink salt & olive oil</p>
     <p class="price">₹549</p>
     <button onclick="addToCart('Dry Fruit Mix', 549)">Add to Cart</button>
+  </div>
+
+  <!-- Product 3 -->
+  <div class="product">
+    <div class="gallery">
+      <img src="649070588_17852819796683190_5947348465990581042_n.webp.jpg"/>
+      <img src="649070588_17852819796683190_5947348465990581042_n.webp.jpg"/>
+    </div>
+    <h3>Chilli Garlic Oil (Small)</h3>
+    <p class="price">₹149</p>
+    <button onclick="addToCart('Chilli Garlic Oil (Small)', 149)">Add to Cart</button>
   </div>
 
 </section>
@@ -48,8 +65,14 @@
   <button class="clear-btn" onclick="clearCart()">Clear Cart 🧹</button>
 
   <ul id="cart-items"></ul>
+
+  <input type="text" id="coupon" placeholder="Enter coupon code">
+  <button onclick="applyCoupon()">Apply</button>
+
+  <p id="discount">Discount: ₹0</p>
   <p id="total">Total: ₹0</p>
-  <button class="checkout-btn" onclick="checkout()">Checkout</button>
+
+  <button onclick="checkout()">Checkout</button>
 </section>
 
 <footer>
