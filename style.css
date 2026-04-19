@@ -36,17 +36,16 @@ nav a {
   background: #222;
   border-radius: 12px;
   width: 260px;
+  transition: 0.3s;
 }
 
-.gallery {
-  display: flex;
-  gap: 5px;
-  overflow-x: auto;
+.product:hover {
+  transform: scale(1.05);
 }
 
-.gallery img {
-  width: 80px;
-  border-radius: 6px;
+.product img {
+  width: 100%;
+  border-radius: 10px;
 }
 
 .price {
