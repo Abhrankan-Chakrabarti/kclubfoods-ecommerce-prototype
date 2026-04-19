@@ -1,12 +1,11 @@
 let cart = [];
 let discount = 0;
+let appliedCode = "";
 
 function addToCart(name, price) {
   const item = cart.find(i => i.name === name);
-
   if (item) item.quantity++;
   else cart.push({ name, price, quantity: 1 });
-
   updateCart();
 }
 
@@ -38,17 +37,44 @@ function updateQuantity(name, value) {
 
 function clearCart() {
   cart = [];
+  discount = 0;
+  appliedCode = "";
   updateCart();
 }
 
 function applyCoupon() {
-  const code = document.getElementById("coupon").value.toUpperCase();
+  const code = document.getElementById("coupon").value.trim().toUpperCase();
 
-  if (code === "SAVE10") discount = 0.1;
-  else if (code === "FLAT50") discount = 50;
+  if (code === "SAVE10") {
+    discount = 0.10;
+    appliedCode = code;
+    alert("10% discount applied!");
+  } 
+  else if (code === "FLAT50") {
+    discount = 50;
+    appliedCode = code;
+    alert("₹50 discount applied!");
+  } 
   else {
-    discount = 0;
-    alert("Invalid coupon");
+    const match = code.match(/(\d+)$/);
+
+    if (match) {
+      const percent = parseInt(match[1]);
+
+      if (percent > 0 && percent <= 90) {
+        discount = percent / 100;
+        appliedCode = code;
+        alert(`${percent}% influencer discount applied!`);
+      } else {
+        discount = 0;
+        appliedCode = "";
+        alert("Invalid coupon value");
+      }
+    } else {
+      discount = 0;
+      appliedCode = "";
+      alert("Invalid coupon");
+    }
   }
 
   updateCart();
@@ -59,6 +85,7 @@ function updateCart() {
   const totalEl = document.getElementById("total");
   const discountEl = document.getElementById("discount");
   const countEl = document.getElementById("cart-count");
+  const appliedEl = document.getElementById("applied-coupon");
 
   list.innerHTML = "";
 
@@ -92,6 +119,7 @@ function updateCart() {
   discountEl.innerText = `Discount: ₹${Math.round(total - finalTotal)}`;
   totalEl.innerText = `Total: ₹${Math.round(finalTotal)}`;
   countEl.innerText = count;
+  appliedEl.innerText = appliedCode ? `Applied: ${appliedCode}` : "";
 }
 
 function checkout() {
