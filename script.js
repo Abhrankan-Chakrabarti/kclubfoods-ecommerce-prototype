@@ -13,57 +13,49 @@ function addToCart(name, price) {
   updateCart();
 }
 
-function removeFromCart(name) {
-  cart = cart.filter(i => i.name !== name);
-  updateCart();
-}
-
-function decreaseQuantity(name) {
-  const item = cart.find(i => i.name === name);
-  if (item && item.quantity > 1) item.quantity--;
-  else removeFromCart(name);
+function clearCart() {
+  cart = [];
+  discount = 0;
+  appliedCode = "";
   updateCart();
 }
 
 function applyCoupon() {
-  const code = document.getElementById("coupon").value.trim().toUpperCase();
-  if (code === "SAVE10") { discount = 0.10; appliedCode = code; }
-  else if (code.match(/[A-Z]+\d+$/)) {
-    discount = parseInt(code.match(/\d+$/)) / 100;
-    appliedCode = code;
-  } else { alert("Invalid Coupon"); return; }
+  const code = document.getElementById("coupon").value.toUpperCase();
+
+  if (code === "SAVE10") discount = 0.1;
+  else {
+    const match = code.match(/(\d+)$/);
+    discount = match ? parseInt(match[1]) / 100 : 0;
+  }
+
+  appliedCode = code;
   updateCart();
 }
 
-function clearCart() { cart = []; discount = 0; appliedCode = ""; updateCart(); }
-
 function updateCart() {
   const list = document.getElementById("cart-items");
-  let subtotal = 0;
-  let count = 0;
+  const totalEl = document.getElementById("total");
+  const discountEl = document.getElementById("discount");
 
   list.innerHTML = "";
+
+  let total = 0;
+
   cart.forEach(item => {
-    subtotal += item.price * item.quantity;
-    count += item.quantity;
+    total += item.price * item.quantity;
     const li = document.createElement("li");
-    li.innerHTML = `
-      <span>${item.name} (x${item.quantity})</span>
-      <div>
-        <button onclick="decreaseQuantity('${item.name}')">-</button>
-        <button onclick="addToCart('${item.name}', ${item.price})">+</button>
-        <button onclick="removeFromCart('${item.name}')">❌</button>
-      </div>
-      <span>₹${item.price * item.quantity}</span>
-    `;
+    li.innerText = `${item.name} x${item.quantity}`;
     list.appendChild(li);
   });
 
-  const savings = subtotal * discount;
-  document.getElementById("total").innerText = `Total: ₹${Math.round(subtotal - savings)}`;
-  document.getElementById("discount").innerText = `Discount: ₹${Math.round(savings)}`;
-  document.getElementById("cart-count").innerText = count;
-  document.getElementById("applied-coupon").innerText = appliedCode ? `Code: ${appliedCode}` : "";
+  let final = total - (discount < 1 ? total * discount : discount);
+  if (final < 0) final = 0;
+
+  discountEl.innerText = `Discount: ₹${Math.round(total-final)}`;
+  totalEl.innerText = `Total: ₹${Math.round(final)}`;
 }
 
-function checkout() { alert("Ready to order? Integration coming soon!"); }
+function checkout() {
+  alert("Payment integration coming soon.");
+}
