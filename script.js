@@ -60,7 +60,6 @@ function applyCoupon() {
 
     if (match) {
       const percent = parseInt(match[1]);
-
       if (percent > 0 && percent <= 90) {
         discount = percent / 100;
         appliedCode = code;
@@ -68,7 +67,7 @@ function applyCoupon() {
       } else {
         discount = 0;
         appliedCode = "";
-        alert("Invalid coupon value");
+        alert("Invalid coupon");
       }
     } else {
       discount = 0;
