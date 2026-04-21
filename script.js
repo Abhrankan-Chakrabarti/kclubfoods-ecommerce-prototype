@@ -4,8 +4,11 @@ let appliedCode = "";
 
 function addToCart(name, price) {
   const item = cart.find(i => i.name === name);
-  if (item) item.quantity++;
-  else cart.push({ name, price, quantity: 1 });
+  if (item) {
+    item.quantity++;
+  } else {
+    cart.push({ name, price, quantity: 1 });
+  }
   updateCart();
 }
 
@@ -19,8 +22,11 @@ function decreaseQuantity(name) {
   if (!item) return;
 
   item.quantity--;
-  if (item.quantity <= 0) removeFromCart(name);
-  else updateCart();
+  if (item.quantity <= 0) {
+    removeFromCart(name);
+  } else {
+    updateCart();
+  }
 }
 
 function updateQuantity(name, value) {
@@ -28,8 +34,9 @@ function updateQuantity(name, value) {
   if (!item) return;
 
   const qty = parseInt(value);
-  if (isNaN(qty) || qty <= 0) removeFromCart(name);
-  else {
+  if (isNaN(qty) || qty <= 0) {
+    removeFromCart(name);
+  } else {
     item.quantity = qty;
     updateCart();
   }
@@ -56,27 +63,29 @@ function applyCoupon() {
     alert("₹50 discount applied!");
   } 
   else {
-    const match = code.match(/(\d+)$/);
+    // Regex to handle influencer codes like STEFAN20 or PRIYA15
+    const match = code.match(/([A-Z]+)(\d+)$/);
 
     if (match) {
-      const percent = parseInt(match[1]);
+      const percent = parseInt(match[2]);
       if (percent > 0 && percent <= 90) {
         discount = percent / 100;
         appliedCode = code;
         alert(`${percent}% influencer discount applied!`);
       } else {
-        discount = 0;
-        appliedCode = "";
-        alert("Invalid coupon");
+        resetCoupon();
       }
     } else {
-      discount = 0;
-      appliedCode = "";
-      alert("Invalid coupon");
+      resetCoupon();
     }
   }
-
   updateCart();
+}
+
+function resetCoupon() {
+  discount = 0;
+  appliedCode = "";
+  alert("Invalid coupon code");
 }
 
 function updateCart() {
@@ -87,40 +96,43 @@ function updateCart() {
   const appliedEl = document.getElementById("applied-coupon");
 
   list.innerHTML = "";
-
-  let total = 0;
+  let subtotal = 0;
   let count = 0;
 
   cart.forEach(item => {
-    total += item.price * item.quantity;
+    subtotal += item.price * item.quantity;
     count += item.quantity;
 
     const li = document.createElement("li");
     li.innerHTML = `
-      ${item.name}
-      <button onclick="decreaseQuantity('${item.name}')">➖</button>
-      <input type="number" value="${item.quantity}" min="1"
-        onchange="updateQuantity('${item.name}', this.value)">
-      <button onclick="addToCart('${item.name}', ${item.price})">➕</button>
-      = ₹${item.price * item.quantity}
-      <button onclick="removeFromCart('${item.name}')">❌</button>
+      <div style="flex:1"><strong>${item.name}</strong><br><small>₹${item.price} each</small></div>
+      <div style="display:flex; align-items:center;">
+        <button onclick="decreaseQuantity('${item.name}')">➖</button>
+        <input type="number" value="${item.quantity}" onchange="updateQuantity('${item.name}', this.value)">
+        <button onclick="addToCart('${item.name}', ${item.price})">➕</button>
+      </div>
+      <div style="width:100px; text-align:right;">₹${item.price * item.quantity}</div>
+      <button onclick="removeFromCart('${item.name}')" style="background:transparent; color:red; margin-left:10px;">✕</button>
     `;
     list.appendChild(li);
   });
 
-  let finalTotal = total;
+  let savings = 0;
+  if (discount > 0 && discount < 1) {
+    savings = subtotal * discount;
+  } else if (discount >= 1) {
+    savings = discount;
+  }
 
-  if (discount < 1) finalTotal -= total * discount;
-  else finalTotal -= discount;
+  const finalTotal = Math.max(0, subtotal - savings);
 
-  if (finalTotal < 0) finalTotal = 0;
-
-  discountEl.innerText = `Discount: ₹${Math.round(total - finalTotal)}`;
+  discountEl.innerText = `Discount: -₹${Math.round(savings)}`;
   totalEl.innerText = `Total: ₹${Math.round(finalTotal)}`;
   countEl.innerText = count;
-  appliedEl.innerText = appliedCode ? `Applied: ${appliedCode}` : "";
+  appliedEl.innerText = appliedCode ? `Applied Coupon: ${appliedCode}` : "";
 }
 
 function checkout() {
-  alert("Prototype only. Payment integration coming later.");
+  if (cart.length === 0) return alert("Your cart is empty!");
+  alert("Order received! This is a prototype; payment gateway integration coming soon.");
 }
