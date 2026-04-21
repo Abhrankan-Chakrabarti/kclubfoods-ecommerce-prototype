@@ -1,7 +1,8 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
-  background: #111;
+  background: linear-gradient(135deg, #111, #1a1a1a);
+  background-attachment: fixed;
   color: white;
   scroll-behavior: smooth;
 }
@@ -12,23 +13,24 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 15px 5%;
-  background: #000;
+  background: rgba(0, 0, 0, 0.9);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   border-bottom: 1px solid #333;
 }
 
 header h1 {
+  color: orange;
+  margin: 0;
   font-size: 1.5rem;
-  letter-spacing: 1px;
 }
 
 nav a {
+  margin-left: 20px;
   color: white;
   text-decoration: none;
-  margin-left: 20px;
-  font-weight: bold;
+  font-weight: 500;
   transition: 0.3s;
 }
 
@@ -45,56 +47,65 @@ nav a:hover {
     linear-gradient(45deg, #ff4d4d, #ff9900);
 }
 
-/* ===== SECTION SPACING ===== */
-section {
-  margin-bottom: 60px;
+.hero h2 {
+  font-size: 3rem;
+  margin: 0;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
 }
 
-/* ===== PRODUCTS GRID ===== */
+.hero p {
+  color: #eee;
+  margin-top: 10px;
+}
+
+/* ===== PRODUCTS ===== */
 .products {
   padding: 60px 5%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
 }
 
-/* ===== PRODUCT CARD ===== */
 .product {
-  background: #222;
+  background: rgba(34, 34, 34, 0.85);
+  backdrop-filter: blur(10px);
   padding: 20px;
-  border-radius: 15px;
+  border-radius: 20px;
   text-align: center;
-  border: 1px solid #333;
-  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s;
   position: relative;
+  border: 1px solid #333;
 }
 
 .product:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(255, 153, 0, 0.2);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(255, 153, 0, 0.2);
+  border-color: orange;
+}
+
+.product img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 /* ===== TAG ===== */
 .tag {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 15px;
+  left: 15px;
   background: orange;
   color: black;
-  padding: 4px 8px;
-  font-size: 12px;
-  border-radius: 5px;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 11px;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
-/* ===== IMAGE GALLERY ===== */
-.main-img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
+/* ===== GALLERY ===== */
 .thumbs {
   display: flex;
   gap: 10px;
@@ -121,23 +132,24 @@ section {
   font-size: 0.9rem;
   color: #aaa;
   margin: 15px 0;
-  min-height: 50px;
+  line-height: 1.4;
 }
 
 .price {
   color: orange;
   font-weight: bold;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  margin: 15px 0;
 }
 
 /* ===== BUTTONS ===== */
 button {
+  padding: 10px 20px;
   background: linear-gradient(45deg, #ff7a00, #ffb347);
   border: none;
-  padding: 10px 20px;
   border-radius: 6px;
-  font-weight: bold;
   cursor: pointer;
+  font-weight: bold;
   transition: 0.3s;
 }
 
@@ -146,39 +158,10 @@ button:hover {
   opacity: 0.9;
 }
 
-/* ===== CART ===== */
-.cart {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 30px;
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 153, 0, 0.15);
-}
-
-#cart-items li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  background: #1a1a1a;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/* ===== CHECKOUT BUTTON ===== */
-.checkout-btn {
-  width: 100%;
-  margin-top: 20px;
-  padding: 15px;
-  font-size: 1.2rem;
-}
-
 /* ===== ABOUT & SOCIAL ===== */
 .about, .social {
+  padding: 80px 5%;
   text-align: center;
-  padding: 40px;
 }
 
 .features {
@@ -189,30 +172,142 @@ button:hover {
 }
 
 .features div {
-  background: #222;
+  background: rgba(34, 34, 34, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 20px 30px;
+  border-radius: 15px;
+  border: 1px solid #444;
+}
+
+/* ===== SOCIAL BUTTON ===== */
+.social a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 30px;
+  background: #E1306C;
+  color: white;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.social a:hover {
+  transform: scale(1.05);
+}
+
+/* ===== CART ===== */
+.cart {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid orange;
+}
+
+#cart-items {
+  list-style: none;
+  padding: 0;
+}
+
+#cart-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a1a1a;
   padding: 15px;
+  margin-bottom: 10px;
   border-radius: 10px;
+}
+
+#cart-items input {
+  width: 40px;
+  background: #333;
+  border: none;
+  color: white;
+  text-align: center;
+  margin: 0 10px;
+  border-radius: 4px;
+}
+
+/* ===== CART CONTROLS ===== */
+.cart-controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background: #222;
+  color: white;
+  flex: 1;
+}
+
+.clear-btn {
+  background: #444;
+  color: white;
+}
+
+/* ===== SUMMARY ===== */
+.cart-summary {
+  margin-top: 30px;
+  text-align: right;
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+#total {
+  color: orange;
+  font-size: 2rem;
+}
+
+/* ===== CHECKOUT ===== */
+.checkout-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  font-size: 1.1rem;
 }
 
 /* ===== FOOTER ===== */
 footer {
   text-align: center;
-  padding: 15px;
+  padding: 40px;
   background: #000;
+  opacity: 0.7;
+}
+
+/* ===== ANIMATION ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ===== MOBILE ===== */
 @media (max-width: 600px) {
-  header {
-    flex-direction: column;
-    align-items: center;
+  .hero h2 {
+    font-size: 2rem;
   }
 
-  nav {
-    margin-top: 10px;
+  .cart {
+    padding: 20px;
   }
 
-  .hero {
-    padding: 60px 20px;
+  .features div {
+    width: 100%;
   }
 }
