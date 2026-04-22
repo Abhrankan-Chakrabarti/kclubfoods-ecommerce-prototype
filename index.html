@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>K-Club Foods | Premium Flavours</title>
+  <title>K-Club Foods</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
@@ -12,8 +12,7 @@
   <h1>K-Club Foods</h1>
   <nav>
     <a href="#products">Products</a>
-    <a href="#about">Why Us</a>
-    <a href="#cart" class="cart-link">🛒 Cart (<span id="cart-count">0</span>)</a>
+    <a href="#cart">Cart (<span id="cart-count">0</span>)</a>
   </nav>
 </header>
 
@@ -22,93 +21,31 @@
   <p>Premium flavours crafted for food lovers</p>
 </section>
 
-<h2 class="section-title">Our Products</h2>
-
 <section id="products" class="products">
 
-  <!-- Chilli Garlic Oil -->
+  <!-- Product -->
   <div class="product">
-    <span class="tag">🔥 Best Seller</span>
-    <div class="gallery">
-      <img src="images/chilli-oil-1.jpg" class="main-img" id="img-oil">
-      <div class="thumbs">
-        <img src="images/chilli-oil-1.jpg" onclick="swapImg('img-oil', this.src)">
-        <img src="images/chilli-oil-2.jpg" onclick="swapImg('img-oil', this.src)">
-      </div>
-    </div>
+    <span class="tag">Best Seller</span>
+    <img src="images/chilli-oil-1.jpg">
     <h3>Chilli Garlic Oil</h3>
-    <p class="desc">Crunchy garlic + premium chillies. No artificial colours.</p>
+    <p class="desc">Bold flavour with slow-cooked garlic & chillies.</p>
     <p class="price">₹298</p>
-    <button onclick="addToCart('Chilli Garlic Oil', 298)">Add to Cart</button>
+    <button onclick="addToCart('Chilli Garlic Oil',298)">Add to Cart</button>
   </div>
 
-  <!-- Dry Fruit Mix -->
   <div class="product">
-    <span class="tag">⭐ Popular</span>
-    <div class="gallery">
-      <img src="images/dry-fruit-1.jpg" class="main-img" id="img-dry">
-      <div class="thumbs">
-        <img src="images/dry-fruit-1.jpg" onclick="swapImg('img-dry', this.src)">
-        <img src="images/dry-fruit-2.jpg" onclick="swapImg('img-dry', this.src)">
-      </div>
-    </div>
+    <img src="images/dry-fruit-1.jpg">
     <h3>Dry Fruit Mix</h3>
-    <p class="desc">Energy-packed premium dry fruits.</p>
+    <p class="desc">Premium roasted mix for healthy snacking.</p>
     <p class="price">₹549</p>
-    <button onclick="addToCart('Dry Fruit Mix', 549)">Add to Cart</button>
+    <button onclick="addToCart('Dry Fruit Mix',549)">Add to Cart</button>
   </div>
 
-  <!-- Caramel -->
-  <div class="product">
-    <span class="tag">New</span>
-    <div class="gallery">
-      <img src="images/caramel-1.jpg" class="main-img" id="img-caramel">
-      <div class="thumbs">
-        <img src="images/caramel-1.jpg" onclick="swapImg('img-caramel', this.src)">
-        <img src="images/caramel-2.jpg" onclick="swapImg('img-caramel', this.src)">
-      </div>
-    </div>
-    <h3>Caramel Makhana</h3>
-    <p class="desc">Crunchy foxnuts with caramel glaze.</p>
-    <p class="price">₹199</p>
-    <button onclick="addToCart('Caramel Makhana', 199)">Add to Cart</button>
-  </div>
-
-  <!-- Masala -->
-  <div class="product">
-    <span class="tag">New</span>
-    <div class="gallery">
-      <img src="images/masala-1.jpg" class="main-img" id="img-masala">
-      <div class="thumbs">
-        <img src="images/masala-1.jpg" onclick="swapImg('img-masala', this.src)">
-        <img src="images/masala-2.jpg" onclick="swapImg('img-masala', this.src)">
-      </div>
-    </div>
-    <h3>Masala Makhana</h3>
-    <p class="desc">Spicy & flavourful roasted foxnuts.</p>
-    <p class="price">₹179</p>
-    <button onclick="addToCart('Masala Makhana', 179)">Add to Cart</button>
-  </div>
-
-</section>
-
-<section id="about" class="about">
-  <h2>Why Choose Us</h2>
-  <div class="features">
-    <div>🌿 Natural Ingredients</div>
-    <div>🔥 Bold Flavours</div>
-    <div>🚫 No Artificial Additives</div>
-    <div>❤️ Made for Food Lovers</div>
-  </div>
-</section>
-
-<section class="social">
-  <h2>Follow us on social media</h2>
-  <a href="https://www.instagram.com/kclubfoods/" target="_blank">📸 Instagram</a>
 </section>
 
 <section id="cart" class="cart">
-  <h2>Your Kitchen Cart</h2>
+  <h2>Your Cart</h2>
+
   <ul id="cart-items"></ul>
 
   <div class="cart-controls">
@@ -117,11 +54,10 @@
     <button onclick="clearCart()" class="clear-btn">Clear Cart</button>
   </div>
 
-  <p id="applied-coupon"></p>
   <p id="discount">Discount: ₹0</p>
   <h3 id="total">Total: ₹0</h3>
 
-  <button onclick="checkout()">Checkout</button>
+  <button class="checkout-btn" onclick="checkout()">Checkout</button>
 </section>
 
 <footer>
