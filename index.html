@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>K-Club Foods</title>
+  <title>K-Club Foods | Premium Flavours</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,6 +12,7 @@
   <h1>K-Club Foods</h1>
   <nav>
     <a href="#products">Products</a>
+    <a href="#about">Why Us</a>
     <a href="#cart">🛒 Cart (<span id="cart-count">0</span>)</a>
   </nav>
 </header>
@@ -20,6 +21,8 @@
   <h2>🔥 Spice Up Every Bite</h2>
   <p>Premium flavours crafted for food lovers</p>
 </section>
+
+<h2 style="text-align:center;margin-top:30px;">Our Products</h2>
 
 <section id="products" class="products">
 
@@ -34,12 +37,12 @@
       </div>
     </div>
     <h3>Chilli Garlic Oil</h3>
-    <p class="desc">Made with premium Guntur chillies and slow-cooked garlic. Perfect for momos, noodles, fried rice and snacks.</p>
+    <p class="desc">Made with premium Guntur chillies and slow-cooked garlic.</p>
     <p class="price">₹298</p>
     <button onclick="addToCart('Chilli Garlic Oil', 298)">Add to Cart</button>
   </div>
 
-  <!-- Pack of 1 (FIXED) -->
+  <!-- Pack of 1 -->
   <div class="product">
     <span class="tag">New</span>
     <div class="gallery">
@@ -50,7 +53,7 @@
       </div>
     </div>
     <h3>Chilli Garlic Oil (Pack of 1)</h3>
-    <p class="desc">Same bold flavour in a compact size. Perfect for quick use and single servings.</p>
+    <p class="desc">Same bold flavour in a compact size.</p>
     <p class="price">₹149</p>
     <button onclick="addToCart('Chilli Garlic Oil (Pack of 1)', 149)">Add to Cart</button>
   </div>
@@ -66,11 +69,58 @@
       </div>
     </div>
     <h3>Dry Fruit Mix</h3>
-    <p class="desc">Premium roasted nuts with pink salt & olive oil. Healthy, tasty and energy-packed.</p>
+    <p class="desc">Premium roasted nuts with pink salt & olive oil.</p>
     <p class="price">₹549</p>
     <button onclick="addToCart('Dry Fruit Mix', 549)">Add to Cart</button>
   </div>
 
+  <!-- Caramel -->
+  <div class="product">
+    <span class="tag">New</span>
+    <div class="gallery">
+      <img src="images/caramel-1.jpg" id="img-caramel">
+      <div class="thumbs">
+        <img src="images/caramel-1.jpg" onclick="swapImg('img-caramel', this.src)">
+        <img src="images/caramel-2.jpg" onclick="swapImg('img-caramel', this.src)">
+      </div>
+    </div>
+    <h3>Caramel Makhana</h3>
+    <p class="desc">Crunchy foxnuts coated with rich caramel.</p>
+    <p class="price">₹199</p>
+    <button onclick="addToCart('Caramel Makhana', 199)">Add to Cart</button>
+  </div>
+
+  <!-- Masala -->
+  <div class="product">
+    <span class="tag">New</span>
+    <div class="gallery">
+      <img src="images/masala-1.jpg" id="img-masala">
+      <div class="thumbs">
+        <img src="images/masala-1.jpg" onclick="swapImg('img-masala', this.src)">
+        <img src="images/masala-2.jpg" onclick="swapImg('img-masala', this.src)">
+      </div>
+    </div>
+    <h3>Masala Makhana</h3>
+    <p class="desc">Spicy roasted foxnuts with bold Indian flavours.</p>
+    <p class="price">₹179</p>
+    <button onclick="addToCart('Masala Makhana', 179)">Add to Cart</button>
+  </div>
+
+</section>
+
+<section id="about" class="about">
+  <h2>Why Choose Us</h2>
+  <div class="features">
+    <div>🌿 Natural Ingredients</div>
+    <div>🔥 Bold Flavours</div>
+    <div>🚫 No Artificial Additives</div>
+    <div>❤️ Made for Food Lovers</div>
+  </div>
+</section>
+
+<section class="social">
+  <h2>Follow us</h2>
+  <a href="https://www.instagram.com/kclubfoods/" target="_blank">📸 Instagram</a>
 </section>
 
 <section id="cart" class="cart">
@@ -84,6 +134,7 @@
     <button onclick="clearCart()">Clear</button>
   </div>
 
+  <p id="applied-coupon"></p>
   <p id="discount">Discount: ₹0</p>
   <h3 id="total">Total: ₹0</h3>
 
