@@ -33,6 +33,7 @@ function updateCart() {
 
   cart.forEach(item => {
     total += item.price * item.qty;
+
     const li = document.createElement("li");
     li.innerText = `${item.name} x${item.qty}`;
     list.appendChild(li);
