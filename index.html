@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>K-Club Foods</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -23,20 +23,40 @@
 
 <section id="products" class="products">
 
-  <!-- Product -->
+  <!-- Chilli Oil -->
   <div class="product">
-    <span class="tag">Best Seller</span>
-    <img src="images/chilli-oil-1.jpg">
+    <div class="gallery">
+      <img src="images/chilli-oil-1.jpg" id="oil">
+      <div class="thumbs">
+        <img src="images/chilli-oil-1.jpg" onclick="swapImg('oil', this.src)">
+        <img src="images/chilli-oil-2.jpg" onclick="swapImg('oil', this.src)">
+      </div>
+    </div>
     <h3>Chilli Garlic Oil</h3>
-    <p class="desc">Bold flavour with slow-cooked garlic & chillies.</p>
+    <p class="desc">Made with premium Guntur chillies and slow-cooked garlic. Perfect for momos, noodles & more.</p>
     <p class="price">₹298</p>
     <button onclick="addToCart('Chilli Garlic Oil',298)">Add to Cart</button>
   </div>
 
+  <!-- Pack of 1 -->
   <div class="product">
-    <img src="images/dry-fruit-1.jpg">
+    <h3>Chilli Garlic Oil (Pack of 1)</h3>
+    <p class="desc">Same bold flavour in a compact size.</p>
+    <p class="price">₹149</p>
+    <button onclick="addToCart('Chilli Garlic Oil (Pack of 1)',149)">Add to Cart</button>
+  </div>
+
+  <!-- Dry Fruit -->
+  <div class="product">
+    <div class="gallery">
+      <img src="images/dry-fruit-1.jpg" id="dry">
+      <div class="thumbs">
+        <img src="images/dry-fruit-1.jpg" onclick="swapImg('dry', this.src)">
+        <img src="images/dry-fruit-2.jpg" onclick="swapImg('dry', this.src)">
+      </div>
+    </div>
     <h3>Dry Fruit Mix</h3>
-    <p class="desc">Premium roasted mix for healthy snacking.</p>
+    <p class="desc">Premium roasted nuts with pink salt & olive oil.</p>
     <p class="price">₹549</p>
     <button onclick="addToCart('Dry Fruit Mix',549)">Add to Cart</button>
   </div>
@@ -48,16 +68,16 @@
 
   <ul id="cart-items"></ul>
 
-  <div class="cart-controls">
-    <input type="text" id="coupon" placeholder="Coupon Code">
+  <div class="controls">
+    <input id="coupon" placeholder="Coupon Code">
     <button onclick="applyCoupon()">Apply</button>
-    <button onclick="clearCart()" class="clear-btn">Clear Cart</button>
+    <button onclick="clearCart()">Clear</button>
   </div>
 
   <p id="discount">Discount: ₹0</p>
   <h3 id="total">Total: ₹0</h3>
 
-  <button class="checkout-btn" onclick="checkout()">Checkout</button>
+  <button onclick="checkout()">Checkout</button>
 </section>
 
 <footer>
