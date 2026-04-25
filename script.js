@@ -1,93 +1,93 @@
 let cart = [];
 let discount = 0;
-let appliedCoupon = "";
+let appliedCode = "";
+
+// =======================
+// IMAGE SWAP
+// =======================
+function swapImg(id, src) {
+  document.getElementById(id).src = src;
+}
 
 // =======================
 // ADD TO CART
 // =======================
 function addToCart(name, price) {
-  const item = cart.find(p => p.name === name);
+  const item = cart.find(i => i.name === name);
 
-  if (item) {
-    item.qty++;
-  } else {
-    cart.push({ name, price, qty: 1 });
-  }
+  if (item) item.quantity++;
+  else cart.push({ name, price, quantity: 1 });
 
   updateCart();
 }
 
 // =======================
-// UPDATE CART UI
+// UPDATE CART
 // =======================
 function updateCart() {
-  const cartItems = document.getElementById("cart-items");
-  const cartCount = document.getElementById("cart-count");
+  const list = document.getElementById("cart-items");
+  const totalEl = document.getElementById("total");
+  const discountEl = document.getElementById("discount");
+  const countEl = document.getElementById("cart-count");
 
-  cartItems.innerHTML = "";
+  list.innerHTML = "";
+
   let total = 0;
   let count = 0;
 
   cart.forEach((item, index) => {
-    total += item.price * item.qty;
-    count += item.qty;
+    total += item.price * item.quantity;
+    count += item.quantity;
 
-    cartItems.innerHTML += `
-      <li>
-        ${item.name} - ₹${item.price}
-        <div>
-          <button onclick="changeQty(${index}, -1)">-</button>
-          <input type="number" value="${item.qty}" min="1" onchange="setQty(${index}, this.value)">
-          <button onclick="changeQty(${index}, 1)">+</button>
-          <button onclick="removeItem(${index})">❌</button>
-        </div>
-      </li>
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      ${item.name} - ₹${item.price}
+      <div>
+        <button onclick="changeQty(${index}, -1)">-</button>
+        <input type="number" value="${item.quantity}" min="1" onchange="setQty(${index}, this.value)">
+        <button onclick="changeQty(${index}, 1)">+</button>
+        <button onclick="removeItem(${index})">❌</button>
+      </div>
     `;
+
+    list.appendChild(li);
   });
 
-  cartCount.innerText = count;
-
   // Apply discount
-  let finalTotal = total;
+  let final = total;
 
-  if (appliedCoupon) {
-    if (appliedCoupon === "SAVE10") {
-      discount = total * 0.10;
-    } else if (appliedCoupon.endsWith("20")) {
-      discount = total * 0.20;
-    } else {
-      discount = 0;
-    }
-    finalTotal = total - discount;
+  if (appliedCode) {
+    final = total - (total * discount);
   }
 
-  document.getElementById("discount").innerText = `Discount: ₹${Math.round(discount)}`;
-  document.getElementById("total").innerText = `Total: ₹${Math.round(finalTotal)}`;
+  if (final < 0) final = 0;
+
+  discountEl.innerText = `Discount: ₹${Math.round(total - final)}`;
+  totalEl.innerText = `Total: ₹${Math.round(final)}`;
+  countEl.innerText = count;
 }
 
 // =======================
-// CHANGE QTY (+ / -)
+// QUANTITY CONTROL
 // =======================
 function changeQty(index, delta) {
-  cart[index].qty += delta;
+  cart[index].quantity += delta;
 
-  if (cart[index].qty <= 0) {
+  if (cart[index].quantity <= 0) {
     cart.splice(index, 1);
   }
 
   updateCart();
 }
 
-// =======================
-// SET QTY (INPUT)
-// =======================
 function setQty(index, value) {
   const qty = parseInt(value);
 
-  if (qty <= 0 || isNaN(qty)) {
+  if (isNaN(qty) || qty <= 0) {
     cart.splice(index, 1);
   } else {
-    cart[index].qty = qty;
+    cart[index].quantity = qty;
   }
 
   updateCart();
@@ -107,10 +107,10 @@ function removeItem(index) {
 function clearCart() {
   cart = [];
   discount = 0;
-  appliedCoupon = "";
+  appliedCode = "";
 
-  document.getElementById("applied-coupon").innerText = "";
   document.getElementById("coupon").value = "";
+  document.getElementById("applied-coupon").innerText = "";
 
   updateCart();
 }
@@ -120,30 +120,35 @@ function clearCart() {
 // =======================
 function applyCoupon() {
   const code = document.getElementById("coupon").value.trim().toUpperCase();
+  const appliedText = document.getElementById("applied-coupon");
 
   if (!code) return;
 
-  if (code === "SAVE10" || code.endsWith("20")) {
-    appliedCoupon = code;
-    document.getElementById("applied-coupon").innerText = `Applied: ${code}`;
-  } else {
-    appliedCoupon = "";
+  // Fixed coupon
+  if (code === "SAVE10") {
+    discount = 0.10;
+    appliedCode = code;
+    appliedText.innerText = "SAVE10 applied (10% off)";
+  }
+
+  // Influencer coupons like XYZ20
+  else if (/^[A-Z]+20$/.test(code)) {
+    discount = 0.20;
+    appliedCode = code;
+    appliedText.innerText = `${code} applied (20% off)`;
+  }
+
+  else {
     discount = 0;
-    document.getElementById("applied-coupon").innerText = "Invalid Coupon";
+    appliedCode = "";
+    appliedText.innerText = "Invalid coupon";
   }
 
   updateCart();
 }
 
 // =======================
-// IMAGE SWAP
-// =======================
-function swapImg(id, src) {
-  document.getElementById(id).src = src;
-}
-
-// =======================
-// CHECKOUT (TEMP)
+// CHECKOUT
 // =======================
 function checkout() {
   if (cart.length === 0) {
