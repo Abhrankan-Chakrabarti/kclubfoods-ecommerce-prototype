@@ -12,7 +12,6 @@
   <h1>K-Club Foods</h1>
   <nav>
     <a href="#products">Products</a>
-    <a href="#about">Why Us</a>
     <a href="#cart">🛒 Cart (<span id="cart-count">0</span>)</a>
   </nav>
 </header>
@@ -24,7 +23,7 @@
 
 <section id="products" class="products">
 
-  <!-- Chilli Garlic Oil -->
+  <!-- Chilli Oil -->
   <div class="product">
     <span class="tag">🔥 Best Seller</span>
     <div class="gallery">
@@ -40,16 +39,23 @@
     <button onclick="addToCart('Chilli Garlic Oil', 298)">Add to Cart</button>
   </div>
 
-  <!-- Pack of 1 -->
+  <!-- Pack of 1 (FIXED) -->
   <div class="product">
     <span class="tag">New</span>
+    <div class="gallery">
+      <img src="images/chilli-oil-small-1.jpg" id="img-oil-small">
+      <div class="thumbs">
+        <img src="images/chilli-oil-small-1.jpg" onclick="swapImg('img-oil-small', this.src)">
+        <img src="images/chilli-oil-small-2.jpg" onclick="swapImg('img-oil-small', this.src)">
+      </div>
+    </div>
     <h3>Chilli Garlic Oil (Pack of 1)</h3>
-    <p class="desc">Same bold flavour in a compact size. Perfect for quick use.</p>
+    <p class="desc">Same bold flavour in a compact size. Perfect for quick use and single servings.</p>
     <p class="price">₹149</p>
     <button onclick="addToCart('Chilli Garlic Oil (Pack of 1)', 149)">Add to Cart</button>
   </div>
 
-  <!-- Dry Fruit Mix -->
+  <!-- Dry Fruit -->
   <div class="product">
     <span class="tag">⭐ Popular</span>
     <div class="gallery">
@@ -67,32 +73,21 @@
 
 </section>
 
-<section id="about" class="about">
-  <h2>Why Choose Us</h2>
-  <div class="features">
-    <div>🌿 Natural Ingredients</div>
-    <div>🔥 Bold Flavours</div>
-    <div>🚫 No Artificial Additives</div>
-    <div>❤️ Made for Food Lovers</div>
-  </div>
-</section>
-
 <section id="cart" class="cart">
   <h2>Your Cart</h2>
 
   <ul id="cart-items"></ul>
 
-  <div class="cart-controls">
-    <input type="text" id="coupon" placeholder="Coupon Code (SAVE10)">
+  <div class="controls">
+    <input id="coupon" placeholder="Coupon Code">
     <button onclick="applyCoupon()">Apply</button>
-    <button onclick="clearCart()" class="clear-btn">Clear Cart</button>
+    <button onclick="clearCart()">Clear</button>
   </div>
 
-  <div class="cart-summary">
-    <p id="discount">Discount: ₹0</p>
-    <h3 id="total">Total: ₹0</h3>
-    <button class="checkout-btn" onclick="checkout()">Checkout</button>
-  </div>
+  <p id="discount">Discount: ₹0</p>
+  <h3 id="total">Total: ₹0</h3>
+
+  <button onclick="checkout()">Checkout</button>
 </section>
 
 <footer>
