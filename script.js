@@ -1,10 +1,14 @@
 let cart = [];
 let discount = 0;
 
+function swapImg(id, src) {
+  document.getElementById(id).src = src;
+}
+
 function addToCart(name, price) {
   const item = cart.find(i => i.name === name);
-  if (item) item.quantity++;
-  else cart.push({name, price, quantity:1});
+  if (item) item.qty++;
+  else cart.push({name, price, qty:1});
   updateCart();
 }
 
@@ -28,17 +32,16 @@ function updateCart() {
   let total = 0;
 
   cart.forEach(item => {
-    total += item.price * item.quantity;
-
+    total += item.price * item.qty;
     const li = document.createElement("li");
-    li.innerText = `${item.name} x${item.quantity}`;
+    li.innerText = `${item.name} x${item.qty}`;
     list.appendChild(li);
   });
 
-  let final = total - (total * discount);
+  let final = total - total * discount;
 
-  document.getElementById("discount").innerText = `Discount: ₹${Math.round(total-final)}`;
-  document.getElementById("total").innerText = `Total: ₹${Math.round(final)}`;
+  document.getElementById("discount").innerText = "Discount: ₹" + (total-final);
+  document.getElementById("total").innerText = "Total: ₹" + final;
 }
 
 function checkout() {
